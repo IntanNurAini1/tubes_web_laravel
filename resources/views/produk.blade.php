@@ -2,62 +2,12 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Produk</title>
 
+    <link rel="stylesheet" href="{{ asset('css/app_footer.css') }}">
+
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background: #f5f7fa;
-        }
-
-        .appbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 32px;
-            background: #fff;
-            box-shadow: 0 2px 6px rgba(0,0,0,.05);
-        }
-
-        .left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 600;
-            color: #1e2b4f;
-        }
-
-        .logo {
-            height: 40px;
-        }
-
-        .profile {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: #0d6efd;
-            color: #fff;
-            padding: 6px 14px;
-            border-radius: 25px;
-            font-size: 14px;
-        }
-
-        .avatar {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px 80px;
-        }
 
         .header-bar {
             display: flex;
@@ -171,19 +121,9 @@
         .primary { background: #0d6efd; color: white; }
         .danger  { background: #dc3545; color: white; }
         .secondary { background: #d1d1d1; }
-
-        footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background: #0d6efd;
-            color: white;
-            text-align: center;
-            padding: 12px;
-            font-size: 13px;
-        }
     </style>
 </head>
+
 
 <body>
 
