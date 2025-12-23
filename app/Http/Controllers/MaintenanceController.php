@@ -26,10 +26,8 @@ class MaintenanceController extends Controller
             'status'    => 'required'
         ]);
 
-        // GET semua data
         $maintenances = Http::get($this->api)->json();
 
-        // Cek apakah kode sudah ada
         $exists = collect($maintenances)
                     ->contains('id_alat', $request->id_alat);
 
@@ -39,7 +37,6 @@ class MaintenanceController extends Controller
                 ->withInput();
         }
 
-        // Kirim ke Node
         $response = Http::post($this->api, [
             'id_alat' => $request->id_alat,
             'nama_alat' => $request->nama_alat,
@@ -47,7 +44,6 @@ class MaintenanceController extends Controller
             'status'    => $request->status
         ]);
 
-        // Kalau gagal tampilkan error
         if (!$response->successful()) {
             return back()->withErrors(['api' => 'Gagal mengirim ke API Node']);
         }

@@ -276,7 +276,6 @@ button.danger{
 </footer>
 
 
-<!-- POPUP TAMBAH -->
 <div class="popup" id="popupTambah">
 <div class="popup-content">
 <h3>Tambah Data Alat</h3>
@@ -305,8 +304,6 @@ button.danger{
 </div>
 </div>
 
-
-<!-- POPUP EDIT -->
 <div class="popup" id="popupEdit">
 <div class="popup-content">
 <h3>Edit Data Alat</h3>
@@ -330,8 +327,6 @@ button.danger{
 </div>
 </div>
 
-
-<!-- POPUP DELETE -->
 <div class="popup" id="popupDelete">
 <div class="popup-content">
 <h3>Konfirmasi</h3>
@@ -350,7 +345,6 @@ function toggleMenu(btn){
     menu.style.display = menu.style.display === "block" ? "none" : "block";
 }
 
-/* OPEN POPUP */
 function openTambah(){
     resetTambahForm();
     closeAll();
@@ -375,7 +369,6 @@ function openDelete(id){
     document.getElementById('btnDelete').onclick=()=>location.href='/maintenance/delete/'+id;
 }
 
-/* ===== CLOSE SEMUA & RESET FORM TAMBAH ===== */
 function closeAll(){
     document.querySelectorAll('.popup').forEach(p=>p.style.display='none');
     resetTambahForm();
@@ -394,7 +387,6 @@ function resetTambahForm(){
     document.getElementById('btnSave').disabled = false;
 }
 
-/* ===== SEARCH ===== */
 function searchAlat(){
     let input=document.getElementById("search").value.toUpperCase();
     let cards=document.querySelectorAll(".card-item");
@@ -404,7 +396,6 @@ function searchAlat(){
     });
 }
 
-/* ===== VALIDASI DUPLIKAT ===== */
 const dataExisting = @json($maintenances);
 
 const idInput = document.querySelector('#popupTambah input[name="id_alat"]');
