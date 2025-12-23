@@ -1,0 +1,82 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
+
+class MeetingController extends Controller
+{
+    private $api;
+
+    public function __construct()
+    {
+        $this->api = env('MEETING_API_URL', 'http://localhost:3000/meetings');
+
+    }
+
+    // TAMPILKAN SEMUA MEETING
+    public function index()
+    {
+        $response = Http::get($this->api);
+
+        $meetings = $response->successful()
+            ? collect($response->json())
+            : collect([]);
+
+        return view('meetings.index', compact('meetings'));
+    }
+
+    // TAMBAH MEETING
+    // TAMBAH MEETING
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'judul' => 'required',
+            'tanggal' => 'required|date',
+            'waktu' => 'required',
+            'deskripsi' => 'nullable'
+        ]);
+
+        // Ambil semua meeting untuk cari ID terakhir
+        $response = Http::get($this->api);
+        $meetings = $response->successful() ? collect($response->json()) : collect([]);
+
+        $lastNumber = $meetings->map(function ($m) {
+            return (int) str_replace('MTG', '', $m['id_meeting']);
+        })->max();
+
+        $nextNumber = $lastNumber ? $lastNumber + 1 : 1; 
+        $data['id_meeting'] = 'MTG' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        $postResponse = Http::post($this->api, $data);
+
+        if ($postResponse->successful()) {
+            return redirect('/meetings')->with('success', 'Meeting berhasil ditambahkan!');
+        } else {
+            return redirect('/meetings')->with('error', 'Gagal menambahkan meeting.');
+        }
+    }
+
+
+    // UPDATE MEETING
+    public function update(Request $request, $id)
+    {
+        $data = $request->validate([
+            'judul' => 'required',
+            'tanggal' => 'required',
+            'waktu' => 'required',
+            'deskripsi' => 'nullable'
+        ]);
+
+        Http::put($this->api . '/' . $id, $data);
+
+        return redirect('/meetings');
+    }
+
+    public function destroy($id)
+    {
+        Http::delete($this->api . '/' . $id);
+        return redirect('/meetings');
+    }
+}
