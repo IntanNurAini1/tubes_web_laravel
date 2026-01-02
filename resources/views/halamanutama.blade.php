@@ -119,7 +119,7 @@
     <p>Pantau stok dan distribusi barang</p>
   </a>
 
-  <a href="/meeting" class="card">
+  <a href="/meetings" class="card">
     <h3>Jadwal Meeting</h3>
     <p>Atur agenda meeting</p>
   </a>
