@@ -31,22 +31,26 @@
         @foreach($meetings as $meeting)
             <div class="card">
                 <div class="card-title">{{ $meeting['judul'] }}</div>
+                <div class="card-subject">{{ $meeting['target_divisi'] }}</div>
                 <div class="card-info">
-                    Tanggal: {{ date('Y-m-d', strtotime($meeting['tanggal'])) }}
-                    <br>Waktu: {{ date('H:i', strtotime($meeting['waktu'])) }}
+                    Tanggal: {{ substr($meeting['tanggal'], 0, 10) }}
+                    <br>Waktu: {{ date('H:i', strtotime($meeting['waktu_mulai'])) }} - {{ date('H:i', strtotime($meeting['waktu_selesai'])) }}
                     <br>{{ $meeting['deskripsi'] }}
                 </div>
 
                 <div class="card-actions">
-                    <button class="btn btn-edit" onclick="openEdit(
-                                                    '{{ $meeting['id_meeting'] }}',
-                                                    '{{ $meeting['judul'] }}',
-                                                    '{{ $meeting['tanggal'] }}',
-                                                    '{{ $meeting['waktu']}}',
-                                                    `{{ $meeting['deskripsi'] }}`
-                                                )">
-                        Edit
+                    <button class="btn btn-edit" onclick='openEdit(
+                        @json($meeting["id_meeting"]),
+                        @json($meeting["judul"]),
+                        @json($meeting["target_divisi"]),
+                        @json($meeting["tanggal"]),
+                        @json($meeting["waktu_mulai"]),
+                        @json($meeting["waktu_selesai"]),
+                        @json($meeting["deskripsi"])
+                    )'>
+                    Edit
                     </button>
+
                     <button type="button" class="btn btn-delete" onclick="openDelete('{{ $meeting['id_meeting'] }}')">
                         Hapus
                     </button>
@@ -65,8 +69,10 @@
                 <input type="hidden" id="methodField">
 
                 <input type="text" name="judul" id="judul" placeholder="Judul Meeting" required>
-                <input type="date" name="tanggal" id="tanggal" min="{{ date('Y-m-d') }}" required>
-                <input type="time" name="waktu" id="waktu" required>
+                <input type="text" name="target_divisi" id="target_divisi" placeholder="Target Divisi" required>
+                <input type="date" name="tanggal" id="tanggal" required>
+                <input type="time" name="waktu_mulai" id="waktu_mulai" required>
+                <input type="time" name="waktu_selesai" id="waktu_selesai" required>
                 <textarea name="deskripsi" id="deskripsi" placeholder="Deskripsi"></textarea>
                 <div class="modal-buttons">
                     <button class="btn">Simpan</button>
@@ -98,62 +104,75 @@
 
     <script>
         const tanggalInput = document.getElementById('tanggal');
-        const waktuInput = document.getElementById('waktu');
+        const waktuMulaiInput = document.getElementById('waktu_mulai');
+        const waktuSelesaiInput = document.getElementById('waktu_selesai');
 
         function openAdd() {
             document.getElementById('modalTitle').innerText = 'Tambah Meeting';
             document.getElementById('meetingForm').action = '/meetings';
-            document.getElementById('methodField').outerHTML = '';
+            // document.getElementById('methodField').outerHTML = '';
+            document.getElementById('methodField').removeAttribute('name');
+            document.getElementById('methodField').removeAttribute('value');
             document.getElementById('meetingForm').reset();
             setMinTime();
             document.getElementById('meetingModal').style.display = 'flex';
         }
 
 
-        function openEdit(id, judul, tanggal, waktu, deskripsi) {
+        function openEdit(id, judul, target_divisi, tanggal, waktu_mulai, waktu_selesai, deskripsi) {
             document.getElementById('modalTitle').innerText = 'Edit Meeting';
             document.getElementById('meetingForm').action = '/meetings/' + id;
 
-            document.getElementById('methodField').outerHTML =
-                `<input type="hidden" name="_method" value="PUT" id="methodField">`;
+            const methodField = document.getElementById('methodField');
+            methodField.setAttribute('name', '_method');
+            methodField.setAttribute('value', 'PUT');
 
             document.getElementById('judul').value = judul;
-            document.getElementById('tanggal').value = tanggal.split('T')[0]; 
-            document.getElementById('waktu').value = waktu.split(':').slice(0, 2).join(':'); 
+            document.getElementById('target_divisi').value = target_divisi;
+            document.getElementById('tanggal').value = tanggal.slice(0, 10);
+            document.getElementById('waktu_mulai').value = waktu_mulai.slice(0, 5);
+            document.getElementById('waktu_selesai').value = waktu_selesai.slice(0, 5);
             document.getElementById('deskripsi').value = deskripsi;
 
             setMinTime();
             document.getElementById('meetingModal').style.display = 'flex';
         }
 
-
         function closeModal() {
             document.getElementById('meetingModal').style.display = 'none';
         }
 
+        function getLocalDateString(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
         function setMinTime() {
             const today = new Date();
-            const selectedDate = new Date(tanggalInput.value);
-            waktuInput.min = "";
-            if (tanggalInput.value === today.toISOString().split('T')[0]) {
+            // const todayStr = today.toISOString().split('T')[0];
+            const todayStr = getLocalDateString(today);
+
+            waktuMulaiInput.min = "";
+            waktuSelesaiInput.min = "";
+
+            if (tanggalInput.value === todayStr) {
                 today.setHours(today.getHours() + 1);
 
                 const hours = String(today.getHours()).padStart(2, '0');
                 const minutes = String(today.getMinutes()).padStart(2, '0');
-
                 const minTimeStr = `${hours}:${minutes}`;
-                waktuInput.min = minTimeStr;
-                if (waktuInput.value) {
-                    const [inputHour, inputMinute] = waktuInput.value.split(':').map(Number);
-                    const [minHour, minMinute] = minTimeStr.split(':').map(Number);
 
-                    if (inputHour < minHour || (inputHour === minHour && inputMinute < minMinute)) {
-                        waktuInput.value = minTimeStr;
-                    }
+                waktuMulaiInput.min = minTimeStr;
+                if (waktuMulaiInput.value) {
+                    waktuSelesaiInput.min = waktuMulaiInput.value;
                 }
             }
         }
 
+        waktuMulaiInput.addEventListener('change', function() {
+            waktuSelesaiInput.min = waktuMulaiInput.value;
+        });
         tanggalInput.addEventListener('change', setMinTime);
 
         function openDelete(id) {
