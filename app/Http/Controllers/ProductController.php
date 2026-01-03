@@ -47,7 +47,7 @@ class ProductController extends Controller
             'status'      => $request->status
         ]);
 
-        return redirect('/');
+        return redirect('/produk')->with('success', 'Produk berhasil ditambahkan');
     }
 
     public function update(Request $request, $kode)
@@ -64,12 +64,12 @@ class ProductController extends Controller
             'status'      => $request->status
         ]);
 
-        return redirect('/');
+        return redirect('/produk')->with('success', 'Produk berhasil diperbarui');
     }
 
     public function delete($kode)
     {
         Http::delete($this->api.'/'.$kode);
-        return redirect('/');
+        return redirect('/produk')->with('success', 'Produk berhasil dihapus');
     }
 }
