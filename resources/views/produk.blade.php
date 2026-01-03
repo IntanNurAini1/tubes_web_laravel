@@ -270,6 +270,30 @@
     </div>
 </div>
 
+<!-- ===== Success ===== -->
+<div class="popup" id="popupSuccess">
+    <div class="popup-content">
+        <h3>Berhasil!!</h3>
+        <p id="successMessage" style="text-align:center;"></p>
+    </div>
+</div>
+
+
+@if (session('success'))
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('successMessage').innerText =
+            "{{ session('success') }}";
+        document.getElementById('popupSuccess').style.display = 'flex';
+
+        setTimeout(() => {
+            closeAll();
+        }, 2000);
+    });
+</script>
+@endif
+
+
 <script>
     let kodeProduk = '';
 
