@@ -9,22 +9,28 @@ use Illuminate\Support\Facades\Session;
 class AkunController extends Controller
 {
     private $api = 'http://localhost:3000/akun';
+
+    // ===============================
+    // HALAMAN LOGIN
+    // ===============================
     public function showLogin()
     {
         return view('login');
     }
 
-    public function store(Request $request)
+    // ===============================
+    // REGISTER (CALL API NODE.JS)
+    // ===============================
+    public function create(Request $request)
     {
         $request->validate([
             'nip' => 'required',
             'username' => 'required',
             'password' => 'required|min:6',
-            'confirm' => 'same:password',
+            'confirm' => 'required|same:password',
         ]);
 
-        // kirim ke API Node.js
-        $response = Http::post($this->api . '/register', [
+        $response = Http::post($this->api, [
             'nip' => $request->nip,
             'username' => $request->username,
             'password' => $request->password,
@@ -32,11 +38,18 @@ class AkunController extends Controller
 
         if ($response->successful()) {
             return redirect()->route('login')
-                ->with('success', 'Registrasi berhasil, silakan login');
+                ->with('success', 'Akun berhasil dibuat, silakan login');
         }
 
-        return back()->with('error', 'Registrasi gagal');
+        return back()->with(
+            'error',
+            $response->json('message') ?? 'Registrasi gagal'
+        );
     }
+
+    // ===============================
+    // LOGIN (CALL API NODE.JS)
+    // ===============================
     public function login(Request $request)
     {
         $request->validate([
@@ -56,9 +69,13 @@ class AkunController extends Controller
 
             return redirect()->route('halaman.utama');
         }
+
         return back()->with('error', 'Username atau password salah');
     }
 
+    // ===============================
+    // LOGOUT
+    // ===============================
     public function logout()
     {
         Session::flush();

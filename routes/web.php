@@ -11,6 +11,7 @@ Route::get('/', function () {
     return redirect()->route('landing');
 });
 
+
 Route::get('/landing', function () {
     return view('landing');
 })->name('landing');
@@ -32,14 +33,14 @@ Route::get('/karyawan', fn () => view('karyawan'));
 Route::get('/logistik', fn () => view('logistik'));
 // Route::get('/meetings', fn () => view('index'));
 Route::get('/maintenance', fn () => view('maintenance'));
-Route::get('/produk', fn () => view('produk'));
 
 Route::get('/logout', [AkunController::class, 'logout'])->name('logout');
 
-Route::get('/produk', [ProductController::class, 'index']);
-Route::post('/produk/store', [ProductController::class, 'store']);
-Route::post('/produk/update/{kode}', [ProductController::class, 'update']);
-Route::get('/produk/delete/{kode}', [ProductController::class, 'delete']);
+Route::get('/produk', [ProductController::class, 'index'])->name('produk.index');
+Route::post('/produk/store', [ProductController::class, 'store'])->name('produk.store');
+Route::post('/produk/update/{kode}', [ProductController::class, 'update'])->name('produk.update');
+Route::get('/produk/delete/{kode}', [ProductController::class, 'delete'])->name('produk.delete');
+
 
 Route::post('/store', [ProductController::class, 'store']);
 Route::post('/update/{kode}', [ProductController::class, 'update']);
