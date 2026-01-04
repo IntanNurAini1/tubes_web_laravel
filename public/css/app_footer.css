@@ -1,4 +1,6 @@
-/* ===== GLOBAL ===== */
+/* =====================
+   GLOBAL RESET
+===================== */
 * {
     box-sizing: border-box;
 }
@@ -6,67 +8,89 @@
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background: #f5f7fa;
+    background-color: #f5f7fa;
+    color: #333;
 }
 
-/* ===== APP BAR ===== */
+/* =====================
+   HEADER / APPBAR
+===================== */
 .appbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 18px 48px;
+
+    padding: 10px 32px;        /* ⬅️ RAMPING */
     background: #ffffff;
-    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-.left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-weight: 600;
-    font-size: 18px;
-    color: #1e2b4f;
-}
-
-.logo {
-    height: 50px;
-}
-
-.profile {
+/* LEFT AREA */
+.appbar .left {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: #0d6efd;
-    color: #fff;
-    padding: 8px 18px;
+}
+
+.appbar .logo {
+    height: 50px;              /* ⬅️ PROPORSIONAL */
+    display: block;
+}
+
+/* PROFILE AREA */
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    background-color: #0d6efd;
+    color: #ffffff;
+
+    padding: 6px 14px;
     border-radius: 999px;
-    font-size: 14px;
+
+    font-size: 13px;
     font-weight: 500;
 }
 
 .avatar {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
-/* ===== CONTAINER ===== */
+/* =====================
+   CONTAINER (OPSIONAL)
+===================== */
 .container {
     max-width: 1200px;
     margin: 40px auto;
-    padding: 0 20px 120px;
+    padding: 0 20px 120px; /* ⬅️ space buat footer */
 }
 
-/* ===== FOOTER ===== */
+/* =====================
+   FOOTER
+===================== */
 footer {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
+
+    background-color: #0d6efd;
+    color: #ffffff;
+
     text-align: center;
-    padding: 15px 0;
-    background-color: #007bff;
-    color: white;
-    box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+    padding: 14px 0;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.08);
     z-index: 999;
 }

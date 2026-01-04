@@ -122,7 +122,7 @@
 
 
     <!-- FORM REGISTER -->
-    <form action="{{ route('akun.create') }}" method="POST">
+    <form action="{{ route('akun.store') }}" method="POST">
       @csrf
       <div class="input-group">
         <label for="nip">ID Karyawan</label>

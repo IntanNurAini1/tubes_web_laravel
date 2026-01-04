@@ -214,14 +214,15 @@ button.danger{
 <body>
 
 <header class="appbar">
-    <div class="left">
+  <div class="left">
+    <a href="{{ route('halaman.utama') }}">
         <img src="{{ asset('asset/logo2.png') }}" class="logo">
-    </div>
-
-    <div class="profile">
-        <img src="{{ asset('asset/mat.jpg') }}" class="avatar">
-        <span>User Name</span>
-    </div>
+    </a>
+  </div>
+  <div class="profile">
+    <img src="{{ asset('asset/mat.jpg') }}" class="avatar">
+    <span>User Name</span>
+  </div>
 </header>
 
 <div class="container">
