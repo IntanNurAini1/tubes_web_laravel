@@ -118,6 +118,18 @@
 
     <script>
         const tanggalInput = document.getElementById('tanggal');
+        function setMinDate() {
+            const today = new Date();
+            today.setDate(today.getDate() + 1); 
+
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+
+            tanggalInput.min = `${year}-${month}-${day}`;
+        }
+
+        setMinDate();
         const waktuMulaiInput = document.getElementById('waktu_mulai');
         const waktuSelesaiInput = document.getElementById('waktu_selesai');
 
@@ -128,6 +140,7 @@
             document.getElementById('methodField').removeAttribute('value');
             document.getElementById('meetingForm').reset();
             setMinTime();
+            setMinDate();
             document.getElementById('meetingModal').style.display = 'flex';
         }
 
@@ -139,7 +152,7 @@
             const methodField = document.getElementById('methodField');
             methodField.setAttribute('name', '_method');
             methodField.setAttribute('value', 'PUT');
-
+            setMinDate();
             document.getElementById('judul').value = judul;
             document.getElementById('target_divisi').value = target_divisi;
             document.getElementById('tanggal').value = tanggal.slice(0, 10);
@@ -163,7 +176,6 @@
         }
         function setMinTime() {
             const today = new Date();
-            // const todayStr = today.toISOString().split('T')[0];
             const todayStr = getLocalDateString(today);
 
             waktuMulaiInput.min = "";
