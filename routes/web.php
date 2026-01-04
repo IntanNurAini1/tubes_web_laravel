@@ -4,9 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\LogistikController;
-use App\Http\Controllers\Api\KaryawanController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\AkunController;
+use App\Http\Controllers\KaryawanController;
+
 Route::get('/', function () {
     return redirect()->route('landing');
 });
@@ -28,7 +29,14 @@ Route::get('/halaman-utama', function () {
     return view('halamanutama');
 })->name('halaman.utama');
 
-Route::get('/karyawan', fn () => view('karyawan'));
+Route::get('/karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
+Route::get('/karyawan/create', [KaryawanController::class, 'create'])->name('karyawan.create');
+Route::post('/karyawan', [KaryawanController::class, 'store'])->name('karyawan.store');
+Route::get('/karyawan/{nip}', [KaryawanController::class, 'show'])->name('karyawan.show');
+Route::get('/karyawan/{id}/edit', [KaryawanController::class, 'edit'])->name('karyawan.edit');
+Route::put('/karyawan/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');
+Route::delete('/karyawan/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');
+
 Route::get('/logistik', fn () => view('logistik'));
 // Route::get('/meetings', fn () => view('index'));
 Route::get('/maintenance', fn () => view('maintenance'));
@@ -44,6 +52,7 @@ Route::get('/produk/delete/{kode}', [ProductController::class, 'delete']);
 Route::post('/store', [ProductController::class, 'store']);
 Route::post('/update/{kode}', [ProductController::class, 'update']);
 Route::get('/delete/{kode}', [ProductController::class, 'delete']);
+
 Route::get('/meetings', [MeetingController::class, 'index']);
 Route::post('/meetings', [MeetingController::class, 'store']);
 Route::put('/meetings/{id}', [MeetingController::class, 'update']);
@@ -55,12 +64,7 @@ Route::get('/logistik/{id}/edit', [LogistikController::class, 'edit'])->name('lo
 Route::put('/logistik/{id}', [LogistikController::class, 'update'])->name('logistik.update');
 Route::delete('/logistik/{id}', [LogistikController::class, 'destroy'])->name('logistik.destroy');
 
-Route::get('/api/employees-php', [KaryawanController::class, 'index']);
-Route::get('/api/employees-php/{nip}', [KaryawanController::class, 'show']);
-
 Route::get('/maintenance', [MaintenanceController::class, 'index']);
 Route::post('/maintenance/store', [MaintenanceController::class, 'store']);
 Route::post('/maintenance/update/{kode}', [MaintenanceController::class, 'update']);
 Route::get('/maintenance/delete/{kode}', [MaintenanceController::class, 'delete']);
-
-
