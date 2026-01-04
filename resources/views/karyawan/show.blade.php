@@ -32,9 +32,10 @@
         <h1>{{ $karyawan['nama'] }}</h1>
         <p class="role-large">{{ $karyawan['jabatan'] }}</p>
 
-        <span class="status {{ strtolower($karyawan['status'] ?? 'aktif') }}">
+        <span class="status {{ ($karyawan['status'] ?? 'Aktif') == 'Aktif' ? 'aktif' : 'nonaktif' }}">
             {{ $karyawan['status'] ?? 'Aktif' }}
         </span>
+
     </div>
 
     <div class="info-grid">
