@@ -108,6 +108,19 @@
     <h2>Selamat Datang</h2>
     <p>Lengkapi data di bawah untuk membuat akun baru</p>
 
+    @if(session('error'))
+  <div style="color:red; margin-bottom:10px;">
+    {{ session('error') }}
+  </div>
+  @endif
+
+  @if(session('success'))
+    <div style="color:green; margin-bottom:10px;">
+      {{ session('success') }}
+    </div>
+  @endif
+
+
     <!-- FORM REGISTER -->
     <form action="{{ route('akun.create') }}" method="POST">
       @csrf

@@ -19,6 +19,30 @@ class AkunController extends Controller
         return view('login');
     }
 
+    public function create(Request $request)
+{
+    $request->validate([
+        'nip' => 'required',
+        'username' => 'required',
+        'password' => 'required',
+        'confirm' => 'required|same:password',
+    ]);
+
+    $response = Http::post('http://localhost:3000/akun', [
+        'nip' => $request->nip,
+        'username' => $request->username,
+        'password' => $request->password,
+    ]);
+
+    if ($response->successful()) {
+        return redirect()->route('login')
+            ->with('success', 'Akun berhasil dibuat, silakan login');
+    }
+
+    return back()->with('error', $response->json('message'));
+}
+
+
     // ===============================
     // PROSES LOGIN (CALL API NODE)
     // ===============================
