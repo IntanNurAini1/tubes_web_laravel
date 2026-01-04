@@ -163,25 +163,26 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($products as $p)
+          @foreach($products as $p)
             <tr>
-                <td>{{ $p['kode_produk'] }}</td>
-                <td>{{ $p['nama_produk'] }}</td>
-                <td>{{ $p['jumlah'] }}</td>
-                <td class="{{ $p['status']=='Aktif' ? 'aktif' : 'non' }}">
-                    {{ $p['status'] }}
+                <td>{{ $p->kode_produk }}</td>
+                <td>{{ $p->nama_produk }}</td>
+                <td>{{ $p->jumlah }}</td>
+                <td class="{{ $p->status == 'Aktif' ? 'aktif' : 'non' }}">
+                    {{ $p->status }}
                 </td>
                 <td class="aksi"
                     onclick="openAksi(
-                        '{{ $p['kode_produk'] }}',
-                        '{{ $p['nama_produk'] }}',
-                        '{{ $p['jumlah'] }}',
-                        '{{ $p['status'] }}'
+                        '{{ $p->kode_produk }}',
+                        '{{ $p->nama_produk }}',
+                        '{{ $p->jumlah }}',
+                        '{{ $p->status }}'
                     )">
                     :
                 </td>
             </tr>
             @endforeach
+
         </tbody>
     </table>
 

@@ -4,15 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\DB; // WAJIB
 
 class ProductController extends Controller
 {
-    private $api = 'http://localhost:3000/api/products';
+    // private $api = 'http://localhost:3000/api/products';
+
+    // public function index()
+    // {
+    //     $response = Http::get($this->api);
+    //     $products = $response->json();
+
+    //     return view('produk', compact('products'));
+    // }
 
     public function index()
     {
-        $response = Http::get($this->api);
-        $products = $response->json();
+        $products = DB::table('products')->get();
 
         return view('produk', compact('products'));
     }
@@ -29,10 +37,9 @@ class ProductController extends Controller
             'status'      => 'required'
         ]);
 
-        $products = Http::get($this->api)->json();
-
-        $exists = collect($products)
-            ->contains('kode_produk', $request->kode_produk);
+        $exists = DB::table('products')
+            ->where('kode_produk', $request->kode_produk)
+            ->exists();
 
         if ($exists) {
             return back()
@@ -40,7 +47,7 @@ class ProductController extends Controller
                 ->withInput();
         }
 
-        Http::post($this->api, [
+        DB::table('products')->insert([
             'kode_produk' => $request->kode_produk,
             'nama_produk' => $request->nama_produk,
             'jumlah'      => $request->jumlah,
@@ -58,18 +65,23 @@ class ProductController extends Controller
             'status'      => 'required'
         ]);
 
-        Http::put($this->api.'/'.$kode, [
-            'nama_produk' => $request->nama_produk,
-            'jumlah'      => $request->jumlah,
-            'status'      => $request->status
-        ]);
+        DB::table('products')
+            ->where('kode_produk', $kode)
+            ->update([
+                'nama_produk' => $request->nama_produk,
+                'jumlah'      => $request->jumlah,
+                'status'      => $request->status
+            ]);
 
         return redirect('/produk')->with('success', 'Produk berhasil diperbarui');
     }
 
     public function delete($kode)
     {
-        Http::delete($this->api.'/'.$kode);
+        DB::table('products')
+            ->where('kode_produk', $kode)
+            ->delete();
+
         return redirect('/produk')->with('success', 'Produk berhasil dihapus');
     }
 }

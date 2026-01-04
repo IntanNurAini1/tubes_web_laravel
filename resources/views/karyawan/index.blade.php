@@ -12,18 +12,15 @@
 <body>
 
 <header class="appbar">
-    <div class="left">
-        <a href="{{ route('halaman.utama') }}">
-            <img src="{{ asset('asset/logo2.png') }}" alt="MyBerikan">
-        </a>
-    </div>
-
-    <div class="profile">
-        <div class="avatar">
-            <img src="{{ asset('asset/mat.jpg') }}">
-        </div>
-        <span>User Name</span>
-    </div>
+  <div class="left">
+    <a href="{{ route('halaman.utama') }}">
+        <img src="{{ asset('asset/logo2.png') }}" class="logo">
+    </a>
+  </div>
+  <div class="profile">
+    <img src="{{ asset('asset/mat.jpg') }}" class="avatar">
+    <span>User Name</span>
+  </div>
 </header>
 
 <div class="container">
