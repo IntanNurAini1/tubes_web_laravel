@@ -129,7 +129,9 @@
 
 <header class="appbar">
     <div class="left">
-        <img src="{{ asset('asset/logo2.png') }}" class="logo">
+        <a href="{{ route('halaman.utama') }}">
+            <img src="{{ asset('asset/logo2.png') }}" alt="MyBerikan">
+        </a>
     </div>
 
     <div class="profile">

@@ -11,7 +11,9 @@
 
     <nav class="navbar">
         <div class="logo">
-            <img src="{{ asset('asset/logo2.png') }}">
+            <a href="{{ route('halaman.utama') }}">
+                <img src="{{ asset('asset/logo2.png') }}" alt="MyBerikan">
+            </a>
         </div>
         <div class="profile">
             <img src="{{ asset('asset/mat.jpg') }}">
@@ -19,15 +21,27 @@
         </div>
     </nav>
 
-    <header>
-        <h1>Jadwal Meeting</h1>
-    </header>
-
     <div class="container">
-        <div class="actions">
+
+        <div class="page-header">
+            <h1>Jadwal Meeting</h1>
             <button class="btn" onclick="openAdd()">+ Tambah Meeting</button>
         </div>
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
+        @if(session('error'))
+            <div class="alert alert-error">
+                {{ session('error') }}
+            </div>
+        @endif
+    </div>
+
+
+    <div class="container">
         @foreach($meetings as $meeting)
             <div class="card">
                 <div class="card-title">{{ $meeting['judul'] }}</div>
@@ -110,7 +124,6 @@
         function openAdd() {
             document.getElementById('modalTitle').innerText = 'Tambah Meeting';
             document.getElementById('meetingForm').action = '/meetings';
-            // document.getElementById('methodField').outerHTML = '';
             document.getElementById('methodField').removeAttribute('name');
             document.getElementById('methodField').removeAttribute('value');
             document.getElementById('meetingForm').reset();

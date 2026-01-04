@@ -19,7 +19,7 @@ Route::get('/register', function () {
     return view('register');
 })->name('register');
 
-Route::post('/register', [AkunController::class, 'create'])->name('akun.create');
+Route::post('/register', [AkunController::class, 'store'])->name('akun.store');
 
 Route::get('/login', [AkunController::class, 'showLogin'])->name('login');
 Route::post('/login', [AkunController::class, 'login'])->name('login.process');

@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
 
-  {{-- CSS APPBAR + FOOTER DARI PRODUCT --}}
   <link rel="stylesheet" href="{{ asset('css/app_footer.css') }}">
 
   <style>
@@ -15,7 +14,6 @@
       font-family: 'Poppins', sans-serif;
     }
 
-    /* BANNER */
     .banner {
       height: 420px;
       background: url('{{ asset('asset/latarbelakang.png') }}') center/cover no-repeat;
@@ -45,13 +43,12 @@
       margin-bottom: 12px;
     }
 
-    /* DASHBOARD CARD */
    .dashboard {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         gap: 20px;
         padding: 40px 60px;
-        margin-bottom: 60px; /* ✅ TAMBAH INI */
+        margin-bottom: 60px; 
     }
 
 
@@ -84,8 +81,6 @@
 </head>
 
 <body>
-
-{{-- APPBAR DARI TEMPLATE PRODUCT --}}
 <header class="appbar">
   <div class="left">
     <img src="{{ asset('asset/logo2.png') }}" class="logo">
@@ -95,8 +90,6 @@
     <span>User Name</span>
   </div>
 </header>
-
-{{-- BANNER --}}
 <section class="banner">
   <div class="banner-content">
     <h1>Selamat Datang di MyBerikan!</h1>
@@ -106,8 +99,6 @@
     </p>
   </div>
 </section>
-
-{{-- CARD DASHBOARD --}}
 <div class="dashboard">
   <a href="/karyawan" class="card">
     <h3>Data Karyawan</h3>
@@ -134,8 +125,6 @@
     <p>Kelola hasil produk</p>
   </a>
 </div>
-
-{{-- FOOTER TEMPLATE PRODUCT --}}
 <footer>
   © 2025 PT Berikan Teknologi Indonesia
 </footer>

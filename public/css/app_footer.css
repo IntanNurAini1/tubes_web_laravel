@@ -9,7 +9,6 @@ body {
     background: #f5f7fa;
 }
 
-/* ===== APP BAR ===== */
 .appbar {
     display: flex;
     justify-content: space-between;
