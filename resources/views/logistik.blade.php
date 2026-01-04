@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Data Logistik</title>
-
-    <!-- ===== STYLE ===== -->
     <style>
     body {
       margin: 0;
@@ -121,8 +119,6 @@
       color: white;
       cursor: pointer;
     }
-
-    /* ===== POPUP ===== */
     .popup {
       display: none;
       position: fixed;
@@ -146,7 +142,6 @@
       text-align: center;
     }
 
-    /* INPUT & SELECT SERAGAM */
     .popup-content input,
     .popup-content select {
       width: 100%;
@@ -167,7 +162,6 @@
       background-size: 10px;
     }
 
-    /* BUTTON POPUP */
     .popup-buttons {
       display: flex;
       gap: 10px;
@@ -184,14 +178,12 @@
       cursor: pointer;
     }
 
-    /* SIMPAN / UPDATE */
     .popup-buttons button[type="submit"],
     .popup-buttons button:not([type]) {
       background-color: #4189d4;
       color: #fff;
     }
 
-    /* BATAL */
     .popup-buttons button[type="button"] {
       background-color: #e0e0e0;
       color: #333;
@@ -211,10 +203,11 @@
 
 <body>
 
-<!-- ===== APPBAR ===== -->
 <header class="appbar">
     <div class="logo">
-        <img src="{{ asset('asset/logo2.png') }}">
+      <a href="{{ route('halaman.utama') }}">
+        <img src="{{ asset('asset/logo2.png') }}" alt="MyBerikan">
+      </a>
     </div>
 
     <div class="profile">
@@ -224,8 +217,6 @@
         <span>User Name</span>
     </div>
 </header>
-
-<!-- ===== CONTENT ===== -->
 <main class="container">
 
     <div class="header-bar">
@@ -269,8 +260,6 @@
         </tbody>
     </table>
 </main>
-
-<!-- ===== POPUP TAMBAH ===== -->
 <div class="popup" id="popupTambah">
     <div class="popup-content">
         <h3>Tambah Logistik</h3>
@@ -292,8 +281,6 @@
         </form>
     </div>
 </div>
-
-<!-- ===== POPUP EDIT ===== -->
 <div class="popup" id="popupEdit">
     <div class="popup-content">
         <h3>Edit Logistik</h3>
@@ -316,8 +303,6 @@
         </form>
     </div>
 </div>
-
-<!-- ===== POPUP DELETE ===== -->
 <div class="popup" id="popupDelete">
     <div class="popup-content small">
         <h4>Hapus Data?</h4>
@@ -331,8 +316,6 @@
 <footer>
     © 2025 PT Berikan Teknologi Indonesia ~ Data Logistik
 </footer>
-
-<!-- ===== SCRIPT ===== -->
 <script>
 let selectedId = '';
 
@@ -372,7 +355,6 @@ function closeAll(){
 </script>
 
 <script>
-/* ===== SEARCH KODE / NAMA ===== */
 document.getElementById('searchInput').addEventListener('keyup', function () {
     const keyword = this.value.toLowerCase();
     const rows = document.querySelectorAll('.product-table tbody tr');
