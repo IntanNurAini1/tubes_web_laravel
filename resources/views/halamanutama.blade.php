@@ -85,10 +85,10 @@
   <div class="left">
     <img src="{{ asset('asset/logo2.png') }}" class="logo">
   </div>
-  <div class="profile">
+  {{-- <div class="profile">
     <img src="{{ asset('asset/mat.jpg') }}" class="avatar">
     <span>User Name</span>
-  </div>
+  </div> --}}
 </header>
 <section class="banner">
   <div class="banner-content">

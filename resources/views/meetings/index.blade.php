@@ -15,10 +15,10 @@
                 <img src="{{ asset('asset/logo2.png') }}" alt="MyBerikan">
             </a>
         </div>
-        <div class="profile">
+        {{-- <div class="profile">
             <img src="{{ asset('asset/mat.jpg') }}">
             <span>User Name</span>
-        </div>
+        </div> --}}
     </nav>
 
     <div class="container">

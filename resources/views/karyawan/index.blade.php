@@ -17,10 +17,10 @@
             <img src="{{ asset('asset/logo2.png') }}" class="logo">
         </a>
     </div>
-    <div class="profile">
+    {{-- <div class="profile">
         <img src="{{ asset('asset/mat.jpg') }}" class="avatar">
         <span>User Name</span>
-    </div>
+    </div> --}}
 </header>
 
 <div class="container">

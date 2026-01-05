@@ -120,8 +120,6 @@
     </div>
   @endif
 
-
-    <!-- FORM REGISTER -->
     <form action="{{ route('akun.store') }}" method="POST">
       @csrf
       <div class="input-group">
