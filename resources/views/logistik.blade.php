@@ -210,12 +210,12 @@
       </a>
     </div>
 
-    <div class="profile">
+    {{-- <div class="profile">
         <div class="avatar">
             <img src="{{ asset('asset/mat.jpg') }}">
         </div>
         <span>User Name</span>
-    </div>
+    </div> --}}
 </header>
 <main class="container">
 
